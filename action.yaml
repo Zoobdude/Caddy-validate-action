@@ -1,6 +1,10 @@
 name: Test GitHub Env
 description: 'Validate Caddyfile using a Caddy container image'
 
+branding:
+  icon: 'check-circle'
+  color: 'green'
+
 inputs:
   Caddyfile:
     description: 'Path to the Caddyfile to validate'
