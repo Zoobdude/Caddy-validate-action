@@ -5,7 +5,7 @@ inputs:
   Caddyfile:
     description: 'Path to the Caddyfile to validate'
     required: true
-    default: './Caddyfile'
+    default: 'Caddyfile'
   Caddy-container-image:
     description: 'Caddy Docker image to use for validation'
     required: false
@@ -21,11 +21,11 @@ runs:
 
     - name: Run validate container and parse output
       run: |
-        docker run --rm \
-          --entrypoint caddy \
-          -v "$CADDYFILE:/etc/caddy/Caddyfile" \
-          $CADDY_CONTAINER_IMAGE \
-          validate --config /etc/caddy/Caddyfile 2>&1 | perl ./parse-validate.pl
+          docker run --rm \
+            --entrypoint caddy \
+            -v ./"$CADDYFILE:/etc/caddy/Caddyfile" \
+            $CADDY_CONTAINER_IMAGE \
+            validate --config /etc/caddy/Caddyfile 2>&1 | perl ./parse-validate.pl
       shell: bash
       env:
         CADDYFILE: ${{ inputs.Caddyfile }}
